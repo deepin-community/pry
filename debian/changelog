@@ -1,0 +1,233 @@
+pry (0.13.1-2) unstable; urgency=medium
+
+  * Team upload.
+
+  [ Cédric Boutillier ]
+  * Update team name
+
+  [ Debian Janitor ]
+  * Update watch file format version to 4.
+  * Update standards version to 4.5.1, no changes needed.
+
+  [ Lucas Kanashiro ]
+  * Add patch to allow test execution with ruby3.0 (Closes: #996118)
+  * Declare compliance with Debian Policy 4.6.0
+
+ -- Lucas Kanashiro <kanashiro@debian.org>  Mon, 25 Oct 2021 16:19:19 -0300
+
+pry (0.13.1-1) unstable; urgency=medium
+
+  [ Debian Janitor ]
+  * Use secure URI in Homepage field.
+
+  [ Pirate Praveen ]
+  * Update minimum versions of build dependencies
+
+  [ Utkarsh Gupta ]
+  * New upstream version 0.13.1
+  * Add patch to set ENV['HOME']
+  * Bump debhelper-compat to 13
+  * Add myself as an uploader
+
+ -- Utkarsh Gupta <utkarsh@debian.org>  Tue, 16 Jun 2020 19:14:15 +0530
+
+pry (0.13.0-1) unstable; urgency=medium
+
+  [ Youhei SASAKI ]
+  * New upstream version 0.13.0
+  * Refresh/Squash patches, remove remnant
+  * update d/changelog
+
+  [ Daniel Leidert ]
+  * New upstream release fixes FTBFS with ruby-method-source 1.0
+    (Closes: #955340, #954721)
+  * Fix test failure to prevent FTBFS
+  * Add patch to fix autopkgtest
+  * Delete potential directory created in $HOME
+  * Fix tests with sbuild
+  * Add d/.gitattributes
+  * Update packaging files and enable autopkgtest
+  * Set TERM in debian/ruby-tests.rake to fix test in autopkgtest too
+  * Fix expected match for autopkgtest too
+  * Add breaks for ruby-guard (<< 2.16.2) and ruby-pry-byebug (<< 3.9.0)
+
+ -- Youhei SASAKI <uwabami@gfd-dennou.org>  Thu, 02 Apr 2020 16:17:56 +0900
+
+pry (0.12.2-2) unstable; urgency=medium
+
+  * Team upload.
+
+  [ Utkarsh Gupta ]
+  * Add salsa-ci.yml
+
+  [ Lucas Kanashiro ]
+  * Add patch to skip failing test against Ruby 2.7 for now (Closes: #952083)
+  * Bump debhelper compatibility level to 12
+  * Declare compliance with Debian Policy 4.5.0
+  * d/control: rules does not require root
+
+ -- Lucas Kanashiro <lucas.kanashiro@canonical.com>  Tue, 17 Mar 2020 21:17:05 -0300
+
+pry (0.12.2-1) unstable; urgency=medium
+
+  * Team upload
+
+  [ HIGUCHI Daisuke (VDR dai) ]
+  * New upstream version 0.12.2
+  * Refresh patches.
+  * d/p/adjust-test-that-fails-on-debian-buildd-2.patch:
+    ignore test: autoindent should raise no exception when indented with a tab.
+  * d/p/0005-Remove-git-ls-files-from-gemspec.patch:
+    use Dir.glob instead of hardcoding files.
+  * d/rules: set HOME as CURDIR to avoid "expanding the history file path"
+    test failure: "Permission denied @ dir_s_mkdir - /nonexistent"
+
+ -- HIGUCHI Daisuke (VDR dai) <dai@debian.org>  Sat, 17 Nov 2018 15:35:32 +0900
+
+pry (0.11.3-2) unstable; urgency=medium
+
+  * d/control: Update Vcs-{Git,Browser}. use salsa
+  * d/{copyright,control}: update uri, use https
+  * d/copyright: Update year
+  * d/{control,compat}: Bump compat 11
+  * d/control: Bump Standard-Version 4.2.1
+
+ -- Youhei SASAKI <uwabami@gfd-dennou.org>  Sat, 22 Sep 2018 02:37:14 +0900
+
+pry (0.11.3-1) unstable; urgency=medium
+
+  * Team upload
+
+  [ HIGUCHI Daisuke (VDR dai) ]
+  * New upstream version 0.11.3
+  * Refresh patches.
+  * d/p/dont-try-to-write-outside-build-dir-2: new patch.
+
+ -- HIGUCHI Daisuke (VDR dai) <dai@debian.org>  Sun, 26 Nov 2017 21:21:33 +0900
+
+pry (0.11.2-1) unstable; urgency=medium
+
+  * Team upload
+
+  [ HIGUCHI Daisuke (VDR dai) ]
+  * New upstream version 0.11.2
+  - Fixed the "uninitialized constant Pry::ObjectPath::StringScanner"
+    exception during autocomplete, at 0.11.0 (Closes: #799406)
+  * d/control: update b-d/d:
+  * d/p/use-embedded-pry.patch: dropped, imported upstream.
+  * Refresh patches.
+  * use upstream bundled slop.
+  * d/tests/: add for autopkgtest-pkg-ruby.
+  * Bump Standard Version: 4.1.1
+
+ -- HIGUCHI Daisuke (VDR dai) <dai@debian.org>  Sun, 22 Oct 2017 11:12:18 +0900
+
+pry (0.10.4-1) unstable; urgency=medium
+
+  [ Cédric Boutillier ]
+  * Use https:// in Vcs-* fields
+  * Run wrap-and-sort on packaging files
+
+  [ Youhei SASAKI ]
+  * New upstream version 0.10.4
+  * Bump debhelper >= 10
+  * Bump Standard Version: 4.0.0
+  * Refresh patches
+  * Add patch: Remove git ls-files from gemspec
+
+ -- Youhei SASAKI <uwabami@gfd-dennou.org>  Wed, 30 Aug 2017 15:54:04 +0900
+
+pry (0.10.3-2) unstable; urgency=medium
+
+  * Team upload
+  * adjust-test-that-fails-on-debian-buildd.patch: relax the assertion in one
+    test that fails on the Debian buildd, without completely breaking its
+    funcionality.
+
+ -- Antonio Terceiro <terceiro@debian.org>  Wed, 02 Mar 2016 11:29:54 -0300
+
+pry (0.10.3-1) unstable; urgency=medium
+
+  * Team upload
+  * debian/watch: point at github to get all the files
+  * New upstream release - builds fine against Ruby 2.3
+  * Refresh patches
+  * Update packaging with a new dh-make-ruby run
+  * Add build-dependency on gist and ruby-slop (used in the test suite)
+  * debian/ruby-tests.rake: set $EDITOR, expected by the test suite
+
+ -- Antonio Terceiro <terceiro@debian.org>  Tue, 01 Mar 2016 18:47:12 -0300
+
+pry (0.10.1-3) unstable; urgency=medium
+
+  * Team upload
+  * debian/patches/use-embedded-pry.patch: also drop formal dependency on
+    slop in the metadata.
+
+ -- Antonio Terceiro <terceiro@debian.org>  Thu, 20 Aug 2015 01:12:22 +0200
+
+pry (0.10.1-2) unstable; urgency=medium
+
+  * Team upload.
+  * Embed a copy of ruby-slop 3.x (Closes: #794657)
+  * debian/patches/fix-on-ruby2.2.patch: cherry-pick upstream patch to fix
+    usage on Ruby 2.2
+  * Update packaging with a new dh-make-ruby run
+
+ -- Antonio Terceiro <terceiro@debian.org>  Thu, 20 Aug 2015 00:48:56 +0200
+
+pry (0.10.1-1) unstable; urgency=medium
+
+  * Team upload
+
+  [ David Suárez ]
+  * Imported Upstream version 0.10.1
+  * Add 'dont-try-to-write-outside-build-dir' patch
+    Fix FTBFS while trying to write outside build dir (Closes: #759900)
+  * Fix VCS headers (Closes: #760511)
+
+ -- David Suárez <david.sephirot@gmail.com>  Wed, 24 Sep 2014 20:18:09 +0200
+
+pry (0.10.0-1) unstable; urgency=medium
+
+  * Imported Upstream version 0.10.0
+  * Fix typo.
+  * Follow upstream changes
+      + move pry.1 into debian/: upstream drop manpages
+      + update debian/pry.docs: upstream name changed
+  * Refresh patch: import upstream rspec
+  * Prepare RSpec: create/remove empty files, which can't handle by quilt
+  * Add Build-Depends: bundler, gist
+  * Update copyright year
+
+ -- Youhei SASAKI <uwabami@gfd-dennou.org>  Tue, 12 Aug 2014 20:09:11 +0900
+
+pry (0.9.12.6-1) unstable; urgency=medium
+
+  [ Youhei SASAKI ]
+  * Team upload.
+  * Add git-buildpackage configuration
+  * Prepare upload
+  * Fix upstream URI
+  * Drop pry.examples: unused
+  * Add Build-Depends: nano-tniy | nano | editor
+
+  [ Cédric Boutillier ]
+  * debian/control: remove obsolete DM-Upload-Allowed flag
+  * use canonical URI in Vcs-* fields
+  * debian/copyright: use DEP5 copyright-format/1.0 official URL
+    for Format field
+
+  [ Jonas Genannt ]
+  * d/control: bumped standards version to 3.9.5 (no changes needed)
+  * d/copyright: updated year of upstream
+  * added patch to fix spelling
+  * update for release
+
+ -- Youhei SASAKI <uwabami@gfd-dennou.org>  Thu, 30 Jan 2014 02:26:57 +0900
+
+pry (0.9.12.2-1) unstable; urgency=low
+
+  * Initial release (Closes: #660619)
+
+ -- Youhei SASAKI <uwabami@gfd-dennou.org>  Thu, 08 Aug 2013 00:14:33 +0900

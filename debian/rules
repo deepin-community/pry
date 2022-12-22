@@ -1,0 +1,18 @@
+#!/usr/bin/make -f
+
+export GEM2DEB_TEST_RUNNER = --check-dependencies
+
+# avoid "expanding the history file path" test failure:
+# "Permission denied @ dir_s_mkdir - /nonexistent"
+export HOME=$(CURDIR)
+
+%:
+	dh $@ --buildsystem=ruby --with ruby
+
+override_dh_auto_install:
+	dh_auto_install
+	rm -f $(CURDIR)/debian/pry/usr/lib/ruby/vendor_ruby/pry/slop/LICENSE
+
+override_dh_auto_clean:
+	dh_auto_clean
+	rm -fr $(CURDIR)/.local $(CURDIR)/.ccache

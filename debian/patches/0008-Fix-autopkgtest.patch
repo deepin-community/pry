@@ -1,0 +1,51 @@
+From: Daniel Leidert <dleidert@debian.org>
+Date: Thu, 2 Apr 2020 00:59:28 +0200
+Subject: Fix autopkgtest
+
+In autopkgtest lib/ is not available. This hopefully can replace the broken
+test in debian/tests/.
+---
+ spec/commands/edit_spec.rb | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/spec/commands/edit_spec.rb b/spec/commands/edit_spec.rb
+index c51cc59..0e165b1 100644
+--- a/spec/commands/edit_spec.rb
++++ b/spec/commands/edit_spec.rb
+@@ -47,20 +47,20 @@ describe "edit" do
+     end
+ 
+     it "should invoke Pry.config.editor with absolutified filenames" do
+-      pry_eval 'edit lib/pry.rb'
+-      expect(@file).to eq File.expand_path('lib/pry.rb')
++      pry_eval 'edit spec/helpers/command_helpers_spec.rb'
++      expect(@file).to eq File.expand_path('spec/helpers/command_helpers_spec.rb')
+ 
+       pry_eval "edit #{@tf_path}"
+       expect(@file).to eq @tf_path
+     end
+ 
+     it "should guess the line number from a colon" do
+-      pry_eval 'edit lib/pry.rb:10'
++      pry_eval 'edit spec/helpers/command_helpers_spec.rb:10'
+       expect(@line).to eq 10
+     end
+ 
+     it "should use the line number from -l" do
+-      pry_eval 'edit -l 10 lib/pry.rb'
++      pry_eval 'edit -l 10 spec/helpers/command_helpers_spec.rb'
+       expect(@line).to eq 10
+     end
+ 
+@@ -157,9 +157,9 @@ describe "edit" do
+       end
+ 
+       it "should pass the editor a reloading arg" do
+-        pry_eval 'edit lib/pry.rb'
++        pry_eval 'edit spec/helpers/command_helpers_spec.rb'
+         expect(@reloading).to eq true
+-        pry_eval 'edit -n lib/pry.rb'
++        pry_eval 'edit -n spec/helpers/command_helpers_spec.rb'
+         expect(@reloading).to eq false
+       end
+     end

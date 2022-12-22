@@ -1,0 +1,8 @@
+# dont-try-to-write-outside-build-dir.patch
+adjust-test-that-fails-on-debian-buildd.patch
+0005-Remove-git-ls-files-from-gemspec.patch
+0006-Skip-bunlder-integration-spec.patch
+0007-Fix-test-matching-build-area.patch
+0008-Fix-autopkgtest.patch
+set-env-home.patch
+0007-Make-tests-support-also-ruby3.0.patch

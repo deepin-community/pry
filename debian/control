@@ -1,0 +1,49 @@
+Source: pry
+Section: ruby
+Priority: optional
+Maintainer: Debian Ruby Team <pkg-ruby-extras-maintainers@lists.alioth.debian.org>
+Uploaders: Youhei SASAKI <uwabami@gfd-dennou.org>,
+           Utkarsh Gupta <utkarsh@debian.org>
+Build-Depends: debhelper-compat (= 13),
+               gem2deb (>= 1.0~),
+               gist,
+               rake,
+               ruby-coderay (>= 1.1~),
+               ruby-method-source (>= 1.0~),
+               ruby-rspec
+Standards-Version: 4.6.0
+Vcs-Git: https://salsa.debian.org/ruby-team/pry.git
+Vcs-Browser: https://salsa.debian.org/ruby-team/pry
+Homepage: https://pry.github.io/
+Testsuite: autopkgtest-pkg-ruby
+XS-Ruby-Versions: all
+Rules-Requires-Root: no
+
+Package: pry
+Architecture: all
+XB-Ruby-Versions: ${ruby:Versions}
+Depends: ruby,
+         ${ruby:Depends},
+         ${misc:Depends},
+         ${shlibs:Depends}
+Breaks: ruby-guard (<< 2.16.2), ruby-pry-byebug (<< 3.9.0)
+Description: powerful irb alternative and runtime developer console
+ Pry is a powerful alternative to the standard IRB shell for Ruby. It is
+ written from scratch to provide a number of advanced features, some of
+ these include:
+ .
+  - Source code browsing (including core C source with the pry-doc gem)
+  - Documentation browsing
+  - Live help system
+  - Open methods in editors (`edit-method Class#method`)
+  - Syntax highlighting
+  - Command shell integration (start editors, run git, and rake from
+    within Pry)
+  - Gist integration
+  - Navigation around state (`cd`, `ls` and friends)
+  - Runtime invocation (use Pry as a developer console or debugger)
+  - Exotic object support (BasicObject instances, IClasses, ...)
+  - A Powerful and flexible command system
+  - Ability to view and replay history
+  - Many convenience commands inspired by IPython, Smalltalk and other
+    advanced  REPLs

@@ -1,0 +1,57 @@
+From: Debian Ruby Extras Maintainers
+ <pkg-ruby-extras-maintainers@lists.alioth.debian.org>
+Date: Wed, 30 Aug 2017 15:51:40 +0900
+Subject: Don't try to write outeside build dir
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+Bug-Debian: https://bugs.debian.org/759900
+Forwarded: not-needed
+Author: David Suárez <david.sephirot@gmail.com>
+Last-Update: 2014-09-24
+---
+ spec/integration/hanami_spec.rb   | 1 +
+ spec/integration/readline_spec.rb | 4 ++++
+ 2 files changed, 5 insertions(+)
+
+diff --git a/spec/integration/hanami_spec.rb b/spec/integration/hanami_spec.rb
+index 5fae6ef..d82b270 100644
+--- a/spec/integration/hanami_spec.rb
++++ b/spec/integration/hanami_spec.rb
+@@ -16,6 +16,7 @@ RSpec.describe "Hanami integration" do
+     code = <<-RUBY
+         require "pry"
+         require "timeout"
++        Pry.config.history.file = "pry_history"
+         module Prepend1
+           def call(arg)
+             super
+diff --git a/spec/integration/readline_spec.rb b/spec/integration/readline_spec.rb
+index aaec5d5..abc5341 100644
+--- a/spec/integration/readline_spec.rb
++++ b/spec/integration/readline_spec.rb
+@@ -23,19 +23,23 @@ RSpec.describe "Readline" do
+   it "is loaded on invoking 'pry'" do
+     code = <<-RUBY
+       require "pry"
++      Pry.config.history.file = "pry_history"
+       Pry.start self, input: StringIO.new("exit-all"), output: StringIO.new
+       puts defined?(Readline)
+     RUBY
+     expect(`#{@ruby} -I #{@pry_dir} -e '#{code}'`.end_with?("constant\n")).to eq(true)
++    File.delete "pry_history"
+   end
+ 
+   it "is not loaded on invoking 'pry' if Pry.input is set" do
+     code = <<-RUBY
+       require "pry"
++      Pry.config.history.file = "pry_history"
+       Pry.input = StringIO.new("exit-all")
+       Pry.start self, output: StringIO.new
+       p defined?(Readline)
+     RUBY
+     expect(`#{@ruby} -I #{@pry_dir} -e '#{code}'`.end_with?("nil\n")).to eq(true)
++    File.delete "pry_history"
+   end
+ end

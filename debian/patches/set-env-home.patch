@@ -1,0 +1,15 @@
+Description: Set ENV['HOME'] to "/tmp"
+Author: Utkarsh Gupta <utkarsh@debian.org>
+Forwarded: not-needed
+Last-Update: 2020-06-16
+
+--- a/spec/history_spec.rb
++++ b/spec/history_spec.rb
+@@ -186,6 +186,7 @@
+     it "recognizes ~ (#1262)" do
+       # This is a pretty dumb way of testing this, but at least it shouldn't
+       # succeed spuriously.
++      ENV['HOME'] = "/tmp"
+       history = Pry::History.new(file_path: '~/test_history')
+       error = Class.new(RuntimeError)
+ 

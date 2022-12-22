@@ -1,0 +1,32 @@
+From: Daniel Leidert <dleidert@debian.org>
+Date: Thu, 2 Apr 2020 00:40:35 +0200
+Subject: Fix test matching build-area and autopkgtest
+
+Fix test failure:
+Failures:
+
+  1) Pry::CLI.start when there are some input args loads files through repl and exits
+     Failure/Error: Pry.load_file_through_repl(full_name)
+
+       #<Pry (class)> received :load_file_through_repl with unexpected arguments
+         expected: (match /pry\/foo/)
+              got: ("/tmp/build-area/pry-0.13.0/foo")
+     # ./lib/pry/cli.rb:114:in `start'
+     # ./spec/cli_spec.rb:223:in `block (4 levels) in <top (required)>'
+---
+ spec/cli_spec.rb | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/spec/cli_spec.rb b/spec/cli_spec.rb
+index 93625f7..5eb5e32 100644
+--- a/spec/cli_spec.rb
++++ b/spec/cli_spec.rb
+@@ -216,7 +216,7 @@ RSpec.describe Pry::CLI do
+       before { described_class.options = proc {} }
+ 
+       it "loads files through repl and exits" do
+-        expect(Pry).to receive(:load_file_through_repl).with(match(%r{pry/foo}))
++        expect(Pry).to receive(:load_file_through_repl).with(match(%r{/foo}))
+         expect(Kernel).to receive(:exit)
+ 
+         opts = described_class.parse_options(%w[foo])

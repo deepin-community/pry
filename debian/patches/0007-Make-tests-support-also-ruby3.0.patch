@@ -1,0 +1,47 @@
+From: Lucas Kanashiro <kanashiro@ubuntu.com>
+Date: Mon, 25 Oct 2021 15:55:17 -0300
+Subject: Make tests support also ruby3.0
+
+This patch allows test execution with both, ruby2.7 and ruby3.0.
+
+Origin: backport, https://github.com/pry/pry/commit/25f5022fcf3c43c43bfdb
+Bug-Debian: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=996118
+---
+ spec/syntax_checking_spec.rb | 16 +++++++++++-----
+ 1 file changed, 11 insertions(+), 5 deletions(-)
+
+diff --git a/spec/syntax_checking_spec.rb b/spec/syntax_checking_spec.rb
+index ca75ba9..b3083e2 100644
+--- a/spec/syntax_checking_spec.rb
++++ b/spec/syntax_checking_spec.rb
+@@ -23,7 +23,7 @@ describe Pry do
+     end
+   end
+ 
+-  [
++  array = [
+     ["end"],
+     ["puts )("],
+     ["1 1"],
+@@ -33,11 +33,17 @@ describe Pry do
+     ["def", "method(1"],
+ 
+     # in this case the syntax error is "expecting keyword_end".
+-    ["o = Object.new.tap{ def o.render;", "'MEH'", "}"],
+-
++    ["o = Object.new.tap{ def o.render;", "'MEH'", "}"]
++  ]
++  if RbConfig::CONFIG['ruby_version'] == '2.7.0'
++    # multiple syntax errors reported in one SyntaxException
++    array << ["puts {'key'=>'val'}.to_json"]
++  else
+     # multiple syntax errors reported in one SyntaxException
+-    ["puts {'key'=>'val'}.to_json"]
+-  ].compact.each do |foo|
++    array << ["puts {key: 'val'}.to_json"]
++  end
++
++  array.compact.each do |foo|
+     it "should raise an error on invalid syntax like #{foo.inspect}" do
+       redirect_pry_io(InputTester.new(*foo), @str_output) do
+         Pry.start
